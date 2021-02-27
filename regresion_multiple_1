@@ -1,0 +1,38 @@
+#IMPORTAR LIBRERÍAS
+
+import pandas as pd
+import statsmodels.formula.api as smf
+
+#LLAMAR LOS DATOS EN EXCEL CSV
+
+car = pd.read_csv('cars.csv')
+
+#ANALIZAR LOS DATOS
+
+print('Campos del dataframe: ')
+print(car.head())
+
+print('Estadística básica \ndel dataframe: ')
+print(car.describe())
+
+print('Forma de \nla matriz: ')
+print(car.shape)
+
+
+#DEFINIMOS EL MODELO DE REGRESIÓN MULTIPLE
+
+reg_mul = smf.ols('consumo ~ cilindraje + potencia + peso', data=car)
+
+# ENTRENAMOS EL MODELO
+res_mul = reg_mul.fit()
+
+#VISUALIZACIÓN DEL RESULTADO
+
+print('Resultados del modelos \nde regresión multiple: ')
+print(res_mul.summary())
+
+print('Coeficientes de \nregresión del modelo: ')
+print(res_mul.rsquared)
+
+print('Sólo los parámetros de la regresión: ')
+print(res_mul.params)

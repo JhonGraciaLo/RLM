@@ -1,0 +1,42 @@
+import pandas as pd
+import statsmodels.formula.api as smf
+import matplotlib.pyplot as plt
+import numpy as np
+
+video = pd.read_csv('USvideos.csv')
+
+#TRANSFORMAR LOS VALORES
+video_2 = video.values
+print(video_2)
+
+y_2 = video_2[:,np.newaxis, 1]
+X_1 = video_2[:,np.newaxis, 4]
+X_2 = video_2[:,np.newaxis, 2]
+X_3 = video_2[:,np.newaxis, 3]
+
+plt.scatter(X_1, y_2, c="Black",)
+plt. title('GRAFICA DE DISPERSIÓN ENTRE COMENTARIOS Y VISTAS')
+plt.xlabel('Cantidad de comentarios')
+plt.ylabel('No de vistas')
+plt.show()
+
+print('Campos del datafreme: ')
+print(video.head())
+
+
+
+print('Estadística básica \ndel datafreme: ')
+print(video.describe())
+
+print('Forma de la matriz: ')
+print(video.shape)
+
+print('Información \ndel dataframe: ')
+print(video.info())
+
+reg_2 = smf.ols('vistas ~ likes + dislikes + comentarios', data=video)
+
+res_2 = reg_2.fit()
+
+print('Resultados de \nla regresión lineal multiple: ')
+print(res_2.summary())
